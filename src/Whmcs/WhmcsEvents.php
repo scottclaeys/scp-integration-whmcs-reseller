@@ -98,7 +98,7 @@ class WhmcsEvents
      * @param ClientService $clients
      * @param ServerService $server
      * @param TicketManager $ticket
-     * @param WhmcsButtons $buttons
+     * @param WhmcsButtons  $buttons
      */
     public function __construct(
         Database $database,
@@ -127,9 +127,9 @@ class WhmcsEvents
     {
         return [
             static::PROVISION => 'provision',
-            static::USAGE => 'usage',
+            static::USAGE     => 'usage',
             static::TERMINATE => 'terminate',
-            static::SUSPEND => 'suspend',
+            static::SUSPEND   => 'suspend',
             static::UNSUSPEND => 'unsuspend',
         ];
     }
@@ -213,7 +213,7 @@ class WhmcsEvents
             try {
                 // TODO: differentiate between auto and regular suspend.
                 // TODO: get suspension reason
-                $server->autoSuspendSubClients("See WHMCS");
+                $server->autoSuspendSubClients('See WHMCS');
                 $this->createSuspensionTicket();
 
                 return static::SUCCESS;
@@ -243,8 +243,8 @@ class WhmcsEvents
 
         $this->ticket->create([
             'clientid' => $this->config->get('userid'),
-            'subject' => 'Server Suspension',
-            'message' => $message,
+            'subject'  => 'Server Suspension',
+            'message'  => $message,
         ]);
     }
 
@@ -262,8 +262,8 @@ class WhmcsEvents
 
         $this->ticket->create([
             'clientid' => $this->config->get('userid'),
-            'subject' => 'Pending Server Suspension',
-            'message' => $message,
+            'subject'  => 'Pending Server Suspension',
+            'message'  => $message,
         ]);
     }
 
@@ -276,8 +276,8 @@ class WhmcsEvents
     {
         try {
             $this->server
-             	->currentOrFail()
-             	->unsuspendSubClients();
+                 ->currentOrFail()
+                 ->unsuspendSubClients();
 
             // return static::SUCCESS;
         } catch (\Exception $exc) {
@@ -291,8 +291,10 @@ class WhmcsEvents
 
     /**
      * Delete the current server using the action chosen in settings.
-     * @return string
+     *
      * @throws \Exception
+     *
+     * @return string
      */
     protected function doDeleteAction()
     {
@@ -343,11 +345,10 @@ class WhmcsEvents
             ->table('tblhosting')
             ->where('id', $serviceId)
             ->update([
-                'domain' => '',
+                'domain'      => '',
                 'dedicatedip' => '',
                 'assignedips' => '',
-            ])
-        ;
+            ]);
 
         $this->log->activity(
             '%s service ID: %s during termination',
@@ -370,8 +371,8 @@ class WhmcsEvents
 
         $this->ticket->create([
             'clientid' => $this->config->get('userid'),
-            'subject' => 'Pending Server Termination',
-            'message' => $message,
+            'subject'  => 'Pending Server Termination',
+            'message'  => $message,
         ]);
     }
 
@@ -389,8 +390,8 @@ class WhmcsEvents
 
         $this->ticket->create([
             'clientid' => $this->config->get('userid'),
-            'subject' => 'Server Termination',
-            'message' => $message,
+            'subject'  => 'Server Termination',
+            'message'  => $message,
         ]);
     }
 }

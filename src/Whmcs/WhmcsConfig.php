@@ -7,7 +7,7 @@ use Scp\Support\Collection;
 class WhmcsConfig
 {
     /**
-     * Functions
+     * Functions.
      */
     const FORM = 'ConfigOptions';
 
@@ -74,7 +74,7 @@ class WhmcsConfig
     {
         $config = [];
 
-        for ($i = 1; $i <= $this->countOptions; ++$i) {
+        for ($i = 1; $i <= $this->countOptions; $i++) {
             $this->addFormOption($config, $i);
         }
 
@@ -86,15 +86,15 @@ class WhmcsConfig
         switch ($key) {
             case static::API_USER:
                 return $config['API User'] = [
-                    'Type' => 'text',
-                    'Size' => '50',
+                    'Type'        => 'text',
+                    'Size'        => '50',
                     'Description' => static::API_USER_DESC,
                 ];
             case static::TICKET_DEPT:
                 return $config['Ticket Department'] = [
-                    'Type' => 'dropdown',
+                    'Type'        => 'dropdown',
                     'Description' => static::TICKET_DEPT_DESC,
-                    'Options' => $this->getDepartmentNames()->implode(','),
+                    'Options'     => $this->getDepartmentNames()->implode(','),
                 ];
         }
     }
@@ -114,7 +114,7 @@ class WhmcsConfig
     }
 
     /**
-     * @param  array  $results
+     * @param array $results
      *
      * @return array
      */
@@ -122,7 +122,7 @@ class WhmcsConfig
     {
         if ($results['result'] != 'success') {
             return [[
-                'name' => 'Error: ' . json_encode($results),
+                'name' => 'Error: '.json_encode($results),
             ]];
         }
 
@@ -130,7 +130,7 @@ class WhmcsConfig
     }
 
     /**
-     * @param  string $value
+     * @param string $value
      *
      * @return int
      */

@@ -2,6 +2,7 @@
 
 namespace Scp\WhmcsReseller;
 
-class BindingResolutionException extends \Exception {
-	//
+class BindingResolutionException extends \Exception
+{
+    //
 }

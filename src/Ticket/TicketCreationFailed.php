@@ -2,5 +2,6 @@
 
 namespace Scp\WhmcsReseller\Ticket;
 
-class TicketCreationFailed extends \Exception {
+class TicketCreationFailed extends \Exception
+{
 }
